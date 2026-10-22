@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
 import { BucketItem } from '../types';
 
+const VPS_API = (typeof window !== 'undefined' && window.location.hostname.includes('github.io'))
+  ? 'https://bucket.yaeger.info'
+  : '';
+const apiUrl = (path: string) => `${VPS_API}${path}`;
+
 export function useBucketPersistence(initialValue: BucketItem[]) {
   const [data, setData] = useState<BucketItem[]>(initialValue);
   const [loading, setLoading] = useState(true);
@@ -10,7 +15,7 @@ export function useBucketPersistence(initialValue: BucketItem[]) {
   useEffect(() => {
     let isMounted = true;
 
-    fetch('/api/bucket')
+    fetch(apiUrl('/api/bucket'))
       .then(async (res) => {
         // If 404, we are likely running locally without `vercel dev`
         if (res.status === 404) {
@@ -55,7 +60,7 @@ export function useBucketPersistence(initialValue: BucketItem[]) {
     const valueToStore = value instanceof Function ? value(data) : value;
     setData(valueToStore);
 
-    fetch('/api/bucket', {
+    fetch(apiUrl('/api/bucket'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(valueToStore),
