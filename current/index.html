@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yaeger's Bucket</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              gold: {
+                300: '#FDE047',
+                400: '#FACC15',
+                500: '#EAB308',
+                600: '#CA8A04',
+                700: '#A16207',
+              },
+              neon: {
+                blue: '#00f3ff',
+                pink: '#ff00ff',
+                purple: '#bc13fe',
+                bg: '#050510'
+              }
+            },
+            animation: {
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'float': 'float 6s ease-in-out infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-10px)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #050510; /* neon-bg */
+        color: #f1f5f9;
+        overflow-x: hidden;
+      }
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0a0a1a; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #334155; 
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #475569; 
+      }
+    </style>
+
+  <script type="importmap">
+{
+  "imports": {
+    "vite": "https://esm.sh/vite@^7.3.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.561.0",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "@vercel/blob": "https://esm.sh/@vercel/blob@^2.0.0",
+    "canvas-confetti": "https://esm.sh/canvas-confetti@1.9.2"
+  }
+}
+</script>
+  <script type="module" crossorigin src="/assets/index-BOFbZrQ8.js"></script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
