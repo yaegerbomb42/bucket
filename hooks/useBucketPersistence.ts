@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
 import { BucketItem } from '../types';
 
-const VPS_API = (typeof window !== 'undefined' && window.location.hostname.includes('github.io'))
-  ? 'https://bucket.yaeger.info'
-  : '';
-const apiUrl = (path: string) => `${VPS_API}${path}`;
+// The original /api/bucket was a Vercel Blob function; there is no VPS backend (and bucket.yaeger.info has no DNS).
+// On GitHub Pages the list is persisted in localStorage instead.
+const LOCAL_ONLY = typeof window !== 'undefined' && window.location.hostname.includes('github.io');
+const LS_KEY = 'bucket_items_v1';
+const apiUrl = (path: string) => path;
+const readLocal = (): BucketItem[] | null => {
+  try { const v = JSON.parse(localStorage.getItem(LS_KEY) || 'null'); return Array.isArray(v) ? v : null; } catch { return null; }
+};
 
 export function useBucketPersistence(initialValue: BucketItem[]) {
   const [data, setData] = useState<BucketItem[]>(initialValue);
@@ -14,6 +18,13 @@ export function useBucketPersistence(initialValue: BucketItem[]) {
   // Load from API on mount
   useEffect(() => {
     let isMounted = true;
+
+    if (LOCAL_ONLY) {
+      const saved = readLocal();
+      if (saved) setData(saved);
+      setLoading(false);
+      return () => { isMounted = false; };
+    }
 
     fetch(apiUrl('/api/bucket'))
       .then(async (res) => {
@@ -59,6 +70,11 @@ export function useBucketPersistence(initialValue: BucketItem[]) {
   const setValue = (value: BucketItem[] | ((val: BucketItem[]) => BucketItem[])) => {
     const valueToStore = value instanceof Function ? value(data) : value;
     setData(valueToStore);
+
+    if (LOCAL_ONLY) {
+      try { localStorage.setItem(LS_KEY, JSON.stringify(valueToStore)); } catch { /* quota */ }
+      return;
+    }
 
     fetch(apiUrl('/api/bucket'), {
       method: 'POST',
