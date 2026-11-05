@@ -1,20 +1,34 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# bucket
 
-# Run and deploy your AI Studio app
+A personal bucket list and life milestone tracking PWA built with React, Vite, Tailwind CSS, and local storage persistence.
 
-This contains everything you need to run your app locally.
+## Overview
+Bucket provides an interactive, visual card-based interface for managing aspirations, completed life goals, tags, and milestones.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1aITOstZRIOG6atWsQPPhHpKY4HW42aJG
+## Stack
+- **Framework**: Vite + React 18
+- **Styling**: Tailwind CSS, Lucide icons
+- **Effects**: Canvas Confetti
+- **Storage**: Local-first storage with optional Vercel Blob sync
 
-## Run Locally
+## Getting Started
 
-**Prerequisites:**  Node.js
+### Prerequisites
+- Node.js 18+
 
+### Installation & Run
+```bash
+npm install
+npm run dev
+```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+Visit the local Vite dev server port shown in the console (typically [http://localhost:5173](http://localhost:5173)).
+
+## Roadmap & Upcoming Work
+- [ ] Category filtering and custom milestone badges
+- [ ] Export and import bucket list data (JSON)
+- [ ] PWA offline service worker and mobile install prompt
+- [ ] Photo attachment upload preview
+
+## License
+MIT (see [LICENSE](LICENSE))
